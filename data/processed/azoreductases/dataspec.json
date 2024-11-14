@@ -1,1 +1,1 @@
-{"name": "azoreductases", "activity": "activity", "seq": "sequence", "seqid": "accession", "smiles": "isosmiles", "context": "\n                                     Reaction information could be levearaged in the future.\n                                     "}
+{"name": "azoreductases", "label": "activity", "protein": "sequence", "protid": "", "smiles": "isosmiles", "context": "Reaction information could be levearaged in the future.\n                                     Original data has 23 null smiles (why?)."}

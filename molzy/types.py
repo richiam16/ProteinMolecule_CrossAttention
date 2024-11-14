@@ -1,10 +1,13 @@
 # Types and enums.
-
-from jaxtyping import Array, Float, Integer
-
+from typing import Sequence
+from jaxtyping import Float, Integer
+from torch import Tensor
+import numpy as np
 from enum import StrEnum, auto
 
+Array = Tensor | np.ndarray
 ArrayInt = Integer[Array, 'n']
+DiscreteArray = ArrayInt | Sequence[str]
 Array2D = Float[Array, 'n k']
 
 

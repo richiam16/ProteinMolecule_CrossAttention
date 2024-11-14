@@ -18,6 +18,7 @@ dependencies:
   - jupyterlab
   - ipykernel
   - rdkit
+  - xgboost
   - pytorch
   - torchvision
   - torchaudio
