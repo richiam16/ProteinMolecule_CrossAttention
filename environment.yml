@@ -1,0 +1,30 @@
+name: molzy
+channels:
+  - conda-forge
+  - rdkit
+  - pytorch
+  - nvidia
+dependencies:
+  - python=3.12
+  - pip
+  - numpy
+  - matplotlib
+  - seaborn
+  - pandas
+  - scipy
+  - scikit-learn
+  - tqdm
+  - jupyter
+  - jupyterlab
+  - ipykernel
+  - rdkit
+  - pytorch
+  - torchvision
+  - torchaudio
+  - pytorch-cuda=12.4
+  - pip:
+      - git+https://github.com/bp-kelley/descriptastorus.git
+      - git+https://github.com/facebookresearch/esm.git
+      - jaxtyping
+      - dataclasses-json
+

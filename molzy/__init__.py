@@ -1,7 +1,9 @@
 """Molzy - Modelling enzyme-subtrate interactions"""
 
 # Add imports here
-from .utils import *
+from . import utils
+from .  import dataloader
+from .paths_and_constants import Paths
 
 
-from ._version import __version__
+__version__='13.11.24'
