@@ -3,10 +3,9 @@ channels:
   - conda-forge
   - rdkit
   - pytorch
-  - nvidia
+  - defaults
 dependencies:
   - python=3.12
-  - pip
   - numpy
   - matplotlib
   - seaborn
@@ -17,12 +16,12 @@ dependencies:
   - jupyter
   - jupyterlab
   - ipykernel
+  - openpyxl
   - rdkit
   - xgboost
   - pytorch
   - torchvision
   - torchaudio
-  - pytorch-cuda=12.4
   - pip:
       - git+https://github.com/bp-kelley/descriptastorus.git
       - git+https://github.com/facebookresearch/esm.git
