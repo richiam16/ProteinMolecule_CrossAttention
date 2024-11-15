@@ -5,7 +5,6 @@ sys.path.append('../..')
 import molzy
 import molzy.utils as utils
 import pandas as pd
-import itertools
 
 
 _P = molzy.Paths()
@@ -14,7 +13,7 @@ _P = molzy.Paths()
 
 if __name__ == "__main__":
 
-    spec = molzy.dataloader.DataSpec(name='SDR',
+    spec = molzy.data.DataSpec(name='SDR',
                                      label='cat_nadph',
                                      protid='Entry Name', 
                                      context="""

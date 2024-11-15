@@ -14,7 +14,7 @@ _P = molzy.Paths()
 
 if __name__ == "__main__":
 
-    spec = molzy.dataloader.DataSpec(name='SAM',
+    spec = molzy.data.DataSpec(name='SAM',
                                      label='activity',
                                      protid='Entry Name', 
                                      context="""

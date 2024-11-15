@@ -1,11 +1,19 @@
+"""Precompute protein and molecule features.
+
+Assumes we already generated protein features via:
+```
+esm-extract esm2_t33_650M_UR50D proteins.fasta \
+  esm2_embs --repr_layers 33 --include per_tok
+```
 
 
+"""
 
 import sys
 sys.path.append('..')
 
 import molzy
-import molzy.dataloader
+import molzy.data
 import descriptastorus.descriptors.rdNormalizedDescriptors as rdNormalizedDescriptors
 import argparse
 import numpy as np
@@ -26,12 +34,12 @@ parser.add_argument(
     
 if __name__ == "__main__":
     args = parser.parse_args()
-    _D, df = molzy.dataloader.load_dataset(args.dataset)
+    _D, df = molzy.data.load_dataset(args.dataset)
     out_dir = _P.data_dir / _D.name 
     generator = rdNormalizedDescriptors.RDKit2DHistogramNormalized()
     smiles = np.unique(df[_D.smiles].dropna().to_numpy(str))
     print(smiles)
     values = np.stack([np.array(generator.process(s))[1:].astype(np.float32) for s in tqdm.tqdm(smiles)])
-    feats = molzy.dataloader.ArrayMap(smiles, values)
+    feats = molzy.data.ArrayMap(smiles, values)
     feats.save(out_dir / 'rdkit2dnorm.npz')
     print(f'Done for {_D.name}')
