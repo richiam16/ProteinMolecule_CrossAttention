@@ -32,14 +32,16 @@ parser.add_argument(
         required=True
     )
     
+    
+
 if __name__ == "__main__":
     args = parser.parse_args()
-    _D, df = molzy.data.load_dataset(args.dataset)
-    out_dir = _P.data_dir / _D.name 
+    dataset = molzy.data.load_dataset(args.dataset)
+    out_dir = dataset.default_dir()
+    df = dataset.load_data()
     generator = rdNormalizedDescriptors.RDKit2DHistogramNormalized()
-    smiles = np.unique(df[_D.smiles].dropna().to_numpy(str))
-    print(smiles)
+    smiles = np.unique(df[dataset.smiles].dropna().to_numpy(str))
     values = np.stack([np.array(generator.process(s))[1:].astype(np.float32) for s in tqdm.tqdm(smiles)])
     feats = molzy.data.ArrayMap(smiles, values)
     feats.save(out_dir / 'rdkit2dnorm.npz')
-    print(f'Done for {_D.name}')
+    print(f'Done for {dataset.name}')

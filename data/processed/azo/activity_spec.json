@@ -1,1 +1,29 @@
-{"dataset": {"name": "azoreductases", "shortname": "azo", "data_file": "azo_dataset.csv", "labels": ["activity"], "columns": {"DyeallE": "Dye used for enzymatic assay", "Ename": "Internal code for enzyme", "SMILE_Substrate1": "Eletron donor NADPH or NADH", "SMILE_Product1": "Dye molecule product", "Reaction": "SMILES equation representing rxn"}, "protein": "Protein Sequence", "protid": "Entry Name", "smiles": "S2_smile", "doi": "", "comments": "* Reaction information could be levearaged in the future.\n                                     * Original data has 23 null smiles (why?)."}, "label": "activity", "task_type": "binary", "units": "", "standard_split": "random", "available_splits": ["random"]}
+{
+    "dataset": {
+        "name": "azoreductases",
+        "shortname": "azo",
+        "data_file": "azo_dataset.csv",
+        "labels": [
+            "activity"
+        ],
+        "columns": {
+            "DyeallE": "Dye used for enzymatic assay",
+            "Ename": "Internal code for enzyme",
+            "SMILE_Substrate1": "Eletron donor NADPH or NADH",
+            "SMILE_Product1": "Dye molecule product",
+            "Reaction": "SMILES equation representing rxn"
+        },
+        "protein": "Protein Sequence",
+        "protid": "Entry Name",
+        "smiles": "S2_smile",
+        "doi": "",
+        "comments": "* Reaction information could be levearaged in the future.\n                                     * Original data has 23 null smiles (why?)."
+    },
+    "label": "activity",
+    "task_type": "binary",
+    "units": "",
+    "standard_split": "activity_stratified",
+    "available_splits": [
+        "activity_stratified"
+    ]
+}

@@ -11,7 +11,7 @@ def _check_ext(fname: str, ext: str):
 
 def load_npz(fname: str) -> dict[str, np.ndarray]:
     _check_ext(fname, 'npz')
-    data = np.load(fname)
+    data = np.load(fname, allow_pickle=True)
     return {key: data[key] for key in data.keys()}
 
 def write_fasta(ids: types.StringArray, seqs: types.StringArray, adir: types.Path) -> None:

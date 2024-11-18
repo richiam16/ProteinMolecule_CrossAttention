@@ -7,7 +7,6 @@ import numpy as np
 from .  import files
 from . import types
 import pandas as pd
-from pathlib import Path
 
 _P = Paths()
 
@@ -28,9 +27,11 @@ class DatasetSpec:
     doi: str = ''
     comments : str = ''
 
-    def load_dataset(self) -> pd.DataFrame:
-        data_path = files.dataset_dir(self.shortname) / self.data_file
-        df = pd.read_csv(str(data_path))
+    def default_dir(self)-> types.Path:
+        return files.dataset_dir(self.shortname)
+
+    def load_data(self) -> pd.DataFrame:
+        df = pd.read_csv(str(self.default_dir() / self.data_file))
         return df
 
 
@@ -46,16 +47,28 @@ class TaskSpec:
     standard_split: str
     available_splits: list[str]
 
+    def load_xy(self):
+        df = self.dataset.load_data()
+        seqs = np.unique(df[self.dataset.protein].to_numpy(str))
+        smiles = np.unique(df[self.dataset.smiles].to_numpy(str))
+        y = df[self.label].to_numpy(np.float32)
+        return seqs, smiles, y
 
-def load_dataset(name:str) -> tuple[DatasetSpec, pd.DataFrame]:
-    spec_path = Path(_P.data_dir / name / 'dataspec.json')
-    with spec_path.open('r') as afile:
-     spec = DatasetSpec.from_json(afile.read())
 
-    data_path = Path(_P.data_dir / name / f'{name}_data.csv')
-    df = pd.read_csv(str(data_path))
-    return spec, df
+def load_dataset(name:str) -> DatasetSpec:
+    data_dir = files.dataset_dir(name)
+    dataset_path = files.datasetspec_path(data_dir)
+    with dataset_path.open('r') as afile:
+        dataset = DatasetSpec.from_json(afile.read())
+    return dataset
 
+
+def load_task(name:str, task:None) -> TaskSpec:
+    data_dir = files.dataset_dir(name)
+    task_path = files.taskspec_path(data_dir, task)
+    with task_path.open('r') as afile:
+        task = TaskSpec.from_json(afile.read())
+    return task
 
 
 
@@ -79,7 +92,7 @@ class ArrayMap:
         return ArrayMap(data[key], data[values])
 
     def save(self, fname:str, key: str = 'isosmiles', values: str = 'values'):
-        return np.savez_compressed(fname, key=self.mapper.keys, values=values)
+        return np.savez_compressed(fname, **{key:self.mapper.index, values:self.values})
 
     def __call__(self, key_array: types.DiscreteArray) -> types.Array2D:
         assert isinstance(key_array, np.ndarray), 'expected np.ndarray as input!'

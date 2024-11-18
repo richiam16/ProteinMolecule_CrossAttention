@@ -1,9 +1,10 @@
 # Data splits.
-
+from __future__ import annotations
 import dataclasses
 import numpy as np
 import sklearn.model_selection
 from . import types
+from . import files
 
 @dataclasses.dataclass(frozen=True)
 class SplitTuple:
@@ -47,6 +48,12 @@ class SplitTuple:
     
     def save(self, path:types.Path)-> None:
         np.savez_compressed(str(path), **self.as_dict())
+
+    @classmethod
+    def load(cls, path:types.Path) -> SplitTuple:
+        data = files.load_npz(str(path))
+        return cls(data['train'], data['val'], data['test'])
+
 
 
 def create_stratified_split(y:types.Array2D, 
