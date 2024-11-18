@@ -22,6 +22,9 @@ dependencies:
   - pytorch
   - torchvision
   - torchaudio
+  - torchinfo
+  - h5py
+  - torchmetrics
   - pip:
       - git+https://github.com/bp-kelley/descriptastorus.git
       - git+https://github.com/facebookresearch/esm.git

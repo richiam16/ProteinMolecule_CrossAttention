@@ -1,6 +1,7 @@
 import numpy as np
 from . import types
 from .paths_and_constants import Paths
+import h5py
 
 
 _P = Paths()
@@ -19,7 +20,11 @@ def write_fasta(ids: types.StringArray, seqs: types.StringArray, adir: types.Pat
         for header, seq in zip(ids, seqs):
             afile.write(f'>{header}\n{seq}\n')
         
-
+def load_h5(path:types.Path) -> h5py.File:
+    _check_ext(str(path), 'h5')
+    return h5py.File(str(path), 'r')
+    
+    
 
 
 def dataset_dir(dataset:str) -> types.Path:
