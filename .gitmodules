@@ -1,0 +1,3 @@
+[submodule "molzy"]
+	path = molzy
+	url = git@github.com:chemcognition-lab/molzy.git
